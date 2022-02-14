@@ -2,4 +2,4 @@
 
 import os
 
-os.system("npx nodemon index.js")
+os.system("npx nodemon --ext '*' index.js")

@@ -10,7 +10,7 @@ app.use(express.static('static', {}));
 // User-visible paths
 
 app.get('/', (req, res) => {
-  res.send('Hello World! <a href="/new">Create new board</a>')
+  res.send('<a href="/new">Create new board</a>')
 });
 
 app.get('/new', (req, res) => {
@@ -28,8 +28,8 @@ app.get('/boards', (req, res) => {
 });
 
 app.post('/action-new', (req, res) => {
-  createboard.createPost().then(() => {
-    res.redirect('/')
+  createboard.createPost().then((new_id) => {
+    res.redirect(`/b/${new_id}`)
   });
 });
 

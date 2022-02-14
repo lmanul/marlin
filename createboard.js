@@ -2,6 +2,6 @@
 module.exports = {
   createPost: () => {
     console.log('Creation');
-    return Promise.resolve();
+    return Promise.resolve('testid');
   },
 };
