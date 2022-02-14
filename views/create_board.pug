@@ -1,10 +1,11 @@
 include head.pug
 
-<a href="/">Back</a>
-<br />
-<br />
+main
+  a(href="/") Back
 
-<form action="/action-new" method="POST">
-  <input type="text" name="title" placeholder="Title" autofocus></input>
-  <input type="submit" value="Create">
-</form>
+  br
+  br
+
+  form(action="/action-new" method="POST")
+    input(type="text" name="title" placeholder="Title" autofocus)
+    input(type="submit" value="Create")

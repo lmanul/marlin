@@ -10,7 +10,7 @@ app.use(express.static('static', {}));
 // User-visible paths
 
 app.get('/', (req, res) => {
-  res.send('<a href="/new">Create new board</a>')
+  res.render('home');
 });
 
 app.get('/new', (req, res) => {
@@ -18,7 +18,7 @@ app.get('/new', (req, res) => {
 });
 
 app.get('/b/:id', (req, res) => {
-  res.send('This is board ' + req.params.id);
+  res.render('board', {'board_id': req.params.id});
 });
 
 // Invisible paths
