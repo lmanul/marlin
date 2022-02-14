@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lmanul/marlin/issues"
   },
-  "homepage": "https://github.com/lmanul/marlin#readme"
+  "homepage": "https://github.com/lmanul/marlin#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
