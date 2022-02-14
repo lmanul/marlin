@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 8080
 
+const createboard = require('./createboard');
+
+app.set('view engine', 'pug');
 app.use(express.static('static', {}));
 
 // User-visible paths
@@ -11,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/new', (req, res) => {
-  res.send('Create a new board');
+  res.render('create_board');
 });
 
 app.get('/b/:id', (req, res) => {
@@ -24,9 +27,10 @@ app.get('/boards', (req, res) => {
   res.json('{boards: []}');
 });
 
-app.post('action-new', (req, res) => {
-  res.status(400);
-  res.send('Not implemented yet');
+app.post('/action-new', (req, res) => {
+  createboard.createPost().then(() => {
+    res.redirect('/')
+  });
 });
 
 app.listen(port, () => {
