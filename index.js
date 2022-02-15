@@ -28,7 +28,7 @@ app.get('/boards', (req, res) => {
 });
 
 app.post('/action-new', (req, res) => {
-  createboard.createPost().then((new_id) => {
+  createboard.createPost(req.params.title).then((new_id) => {
     res.redirect(`/b/${new_id}`)
   });
 });
