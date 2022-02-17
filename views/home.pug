@@ -1,9 +1,10 @@
 include head.pug
 
 main
-  <a href="/new">Create new board</a>
+  a(href="/new") Create new board
 
-  ul
-    each board in boards
-      a(href="/b/" + board.id)
-        li= board.title
+  p Recent boards:
+    ul
+      each board in boards
+        a(href="/b/" + board.id)
+          li= board.title
