@@ -3,13 +3,17 @@ const app = express()
 const port = 8080
 
 const createboard = require('./createboard');
+const list = require('./list')
 
 app.set('view engine', 'pug');
 app.use(express.static('static', {}));
 
+list.init();
+
 // User-visible paths
 
 app.get('/', (req, res) => {
+  console.log(list.boards);
   res.render('home');
 });
 
@@ -27,9 +31,9 @@ app.get('/boards', (req, res) => {
   res.json('{boards: []}');
 });
 
-app.post('/action-new', (req, res) => {
-  createboard.createPost(req.params.title).then((new_id) => {
-    res.redirect(`/b/${new_id}`)
+app.get('/action-new', (req, res) => {
+  createboard.createPost(req.query.title).then((new_id) => {
+    res.redirect(`/b/${new_id}`);
   });
 });
 
