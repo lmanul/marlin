@@ -13,8 +13,15 @@ list.init();
 // User-visible paths
 
 app.get('/', (req, res) => {
-  console.log(list.boards);
-  res.render('home');
+  const boards = list.boards;
+  const displayBoards = [];
+  for (const boardId in boards) {
+    displayBoards.push({
+      id: boardId,
+      title: boards[boardId][0]
+    });
+  }
+  res.render('home', {'boards': displayBoards});
 });
 
 app.get('/new', (req, res) => {

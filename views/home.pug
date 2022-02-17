@@ -2,3 +2,8 @@ include head.pug
 
 main
   <a href="/new">Create new board</a>
+
+  ul
+    each board in boards
+      a(href="/b/" + board.id)
+        li= board.title
