@@ -7,12 +7,14 @@ let boards = {};
 const init = () => {
   fs.readdir(DATA_DIR, (err, files) => {
     files.forEach(file => {
+      console.log('Reading "' + file + '"...');
       fs.readFile(DATA_DIR + '/' + file, 'utf8', (err, data) => {
         if (err) {
           console.log('Error reading file');
         } else {
           const obj = JSON.parse(data);
-          add(obj.id, obj.title, 0);
+          console.log('Done');
+          add(obj.id, obj.title, obj.seconds_since_epoch || 0);
         }
       });
     });
