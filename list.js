@@ -5,6 +5,9 @@ const DATA_DIR = 'data/boards/';
 let boards = {};
 
 const init = () => {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
   fs.readdir(DATA_DIR, (err, files) => {
     files.forEach(file => {
       console.log('Reading "' + file + '"...');
