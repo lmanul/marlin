@@ -1,8 +1,9 @@
 const fs = require('fs')
+const Board = require('./model/board')
 
 const DATA_DIR = 'data/boards/';
 
-let boards = {};
+let boards = [];
 
 const init = () => {
   if (!fs.existsSync(DATA_DIR)) {
@@ -16,16 +17,19 @@ const init = () => {
           console.log('Error reading file');
         } else {
           const obj = JSON.parse(data);
+          const board = new Board(obj.id, obj.title, obj.seconds_since_epoch || 0);
           console.log('Done');
-          add(obj.id, obj.title, obj.seconds_since_epoch || 0);
+          add(board);
         }
       });
     });
   });
 };
 
-const add = (id, title, date) => {
-  boards[id] = [title, date];
+const add = (board) => {
+  boards.push(board);
+  // Sort in reverse-chronological order.
+  boards.sort((one, two) => two.date - one.date);
 };
 
 module.exports = {

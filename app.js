@@ -15,10 +15,13 @@ list.init();
 app.get('/', (req, res) => {
   const boards = list.boards;
   const displayBoards = [];
-  for (const boardId in boards) {
+  for (const board of boards) {
+    const date = new Date(0);
+    date.setUTCSeconds(board.date);
     displayBoards.push({
-      id: boardId,
-      title: boards[boardId][0]
+      id: board.id,
+      title: board.title,
+      date: date,
     });
   }
   res.render('home', {'boards': displayBoards});

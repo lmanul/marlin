@@ -1,5 +1,6 @@
 const fs = require('fs')
 const list = require('./list')
+const Board = require('./model/board')
 
 const DATA_DIR = 'data/boards/';
 
@@ -16,16 +17,13 @@ module.exports = {
   createPost: (title) => {
     return new Promise((resolve, reject) => {
       const newId = randomId();
-      const boardObj = {
-        id: newId,
-        title: title,
-        seconds_since_epoch: Math.round(new Date().getTime() / 1000),
-      };
+      const board = new Board(
+        newId, title, Math.round(new Date().getTime() / 1000));
 
       console.log('Writing file for "' + title + '"...');
       fs.writeFile(
-        DATA_DIR + newId + '.json', JSON.stringify(boardObj), 'utf8', () => {
-          list.add(newId, title, 0);
+        DATA_DIR + newId + '.json', board.serialize(), 'utf8', () => {
+          list.add(board);
           console.log('Done');
           resolve(newId);
         });

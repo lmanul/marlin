@@ -7,7 +7,14 @@
     <p>Recent boards:
       <ul>
         <% boards.forEach(function(board) { %>
-          <li><a href="/b/<%= board.id %>"><%= board.title %></a></li>
+          <li>
+            <a href="/b/<%= board.id %>"><%= board.title %></a>
+            <span class="board-list-date">
+              (<%= board.date.getFullYear() + '-' +
+                   ('' + board.date.getMonth()).padStart(2, '0') + '-' +
+                   ('' + board.date.getDate()).padStart(2, '0') %>)
+            </span>
+          </li>
         <% }); %>
       </ul>
     </p>

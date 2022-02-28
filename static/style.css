@@ -23,3 +23,7 @@ h1 a {
 main {
   margin: 2ex;
 }
+
+.board-list-date {
+  color: #aaa;
+}
