@@ -1,0 +1,13 @@
+<%- include('head.ejs'); %>
+
+<main>
+  <a href="/new">Create new board</a>
+
+  <p>Recent boards:
+    <ul>
+      <% boards.forEach(function(board) { %>
+        <li><a href="/b/<%= board.id %>"><%= board.title %></a></li>
+      <% }); %>
+    </ul>
+  </p>
+</main>

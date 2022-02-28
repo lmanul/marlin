@@ -5,7 +5,7 @@ const port = 8080
 const createboard = require('./createboard');
 const list = require('./list')
 
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.use(express.static('static', {}));
 
 list.init();
