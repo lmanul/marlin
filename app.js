@@ -21,13 +21,9 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
 // Authentication
 
-app.use(session({
-    secret: "secret",
-    resave: false ,
-    saveUninitialized: true ,
-}))
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(session({ secret: "secret", resave: false, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const authUser = (request, accessToken, refreshToken, profile, done) => {
   return done(null, profile);
@@ -36,7 +32,7 @@ const authUser = (request, accessToken, refreshToken, profile, done) => {
 passport.use(new GoogleStrategy({
     clientID:     process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:  "http://127.0.0.1:8080/auth/google/callback",
+    callbackURL:  "/auth/google/callback",
     passReqToCallback   : true
   }, authUser));
 
