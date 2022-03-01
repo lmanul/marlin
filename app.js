@@ -12,6 +12,12 @@ const list = require('./list')
 app.set('view engine', 'ejs');
 app.use(express.static('static', {}));
 
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+  console.log('Please set these two environment variables before starting ' +
+              'this server: GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET');
+  process.exit();
+}
+
 // Authentication
 
 app.use(session({
