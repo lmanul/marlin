@@ -91,11 +91,11 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('home', {'boards': displayBoards});
 });
 
-app.get('/new', (req, res) => {
+app.get('/new', checkAuthenticated, (req, res) => {
   res.render('create_board');
 });
 
-app.get('/b/:id', (req, res) => {
+app.get('/b/:id', checkAuthenticated, (req, res) => {
   res.render('board', {'board_id': req.params.id});
 });
 
@@ -105,7 +105,7 @@ app.get('/boards', (req, res) => {
   res.json('{boards: []}');
 });
 
-app.get('/action-new', (req, res) => {
+app.get('/action-new', checkAuthenticated, (req, res) => {
   createboard.createPost(req.query.title).then((new_id) => {
     res.redirect(`/b/${new_id}`);
   });
