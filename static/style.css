@@ -24,6 +24,10 @@ main {
   margin: 2ex;
 }
 
+#logout-button {
+  padding: 1ex;
+}
+
 .board-list-date {
   color: #aaa;
 }

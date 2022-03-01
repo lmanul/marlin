@@ -40,22 +40,43 @@ passport.use(new GoogleStrategy({
     passReqToCallback   : true
   }, authUser));
 
-app.get('/auth/google/callback',
-  (req, res) => {
-    res.redirect('/');
-  }
-);
+passport.serializeUser((user, done) => {
+   done(null, user);
+})
 
-app.get('/auth/google',
-        passport.authenticate('google', {
-          scope: [ 'email', 'profile' ] }
+passport.deserializeUser((user, done) => {
+  done (null, user);
+})
+
+app.get('/auth/google/callback', passport.authenticate( 'google', {
+   successRedirect: '/',
+   failureRedirect: '/login'
+}));
+
+app.get('/auth/google', passport.authenticate('google', {
+  scope: [ 'email', 'profile' ] }
 ));
+
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect("/login");
+}
+
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
+})
+
+app.post("/logout", (req,res) => {
+   req.logOut();
+   res.redirect("/login");
+   console.log('-------> User Logged out');
+})
 
 list.init();
 
 // User-visible paths
 
-app.get('/', (req, res) => {
+app.get('/', checkAuthenticated, (req, res) => {
   const boards = list.boards;
   const displayBoards = [];
   for (const board of boards) {
