@@ -2,4 +2,4 @@
 
 import os
 
-os.system("npx nodemon --ext js,ejs app.js")
+os.system("node app.js")
