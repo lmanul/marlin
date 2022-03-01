@@ -8,6 +8,7 @@ const port = 8080
 
 const createboard = require('./createboard');
 const list = require('./list')
+const util = require('./util');
 
 app.set('view engine', 'ejs');
 app.use(express.static('static', {}));
@@ -92,18 +93,20 @@ app.get('/', checkAuthenticated, (req, res) => {
     });
   }
   res.render('home', {
+    ...util.getLoggedInUserDetails(req),
     'boards': displayBoards,
-    'loggedInUserAvatar': req.user.picture,
-    'loggedInUserEmail': req.user.email,
   });
 });
 
 app.get('/new', checkAuthenticated, (req, res) => {
-  res.render('create_board');
+  res.render('create_board', util.getLoggedInUserDetails(req));
 });
 
 app.get('/b/:id', checkAuthenticated, (req, res) => {
-  res.render('board', {'board_id': req.params.id});
+  res.render('board', {
+    ...util.getLoggedInUserDetails(req),
+    'board_id': req.params.id
+  });
 });
 
 // Invisible paths
