@@ -5,16 +5,18 @@
     <title>Marlin</title>
     <link rel="stylesheet" href="/style.css">
   <body>
-    <h1>
-      <a href="/"><img id="logo" src="/marlin.svg">Marlin</a>
-      <div id="self-info">
-        <% if (!!loggedInUserEmail) { %>
-          <div id="logged-in-user-avatar">
-            <img src=<%= loggedInUserAvatar %> title=<%= loggedInUserEmail %> />
-          </div>
-          <form id="logout-form" action="/logout" method="POST">
-            <button id="logout-button" type="submit">Sign out</button>
-          </form>
-        <% } %>
-      </div>
-    </h1>
+    <div id="header-bg">
+      <header>
+        <a href="/"><img id="logo" src="/marlin.svg">Marlin</a>
+        <div id="self-info">
+          <% if (!!loggedInUserEmail) { %>
+            <div id="logged-in-user-avatar">
+              <img src=<%= loggedInUserAvatar %> title=<%= loggedInUserEmail %> />
+            </div>
+            <form id="logout-form" action="/logout" method="POST">
+              <button id="logout-button" type="submit">Sign out</button>
+            </form>
+          <% } %>
+        </div>
+      </header>
+    </div>
