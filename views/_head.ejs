@@ -6,8 +6,15 @@
     <link rel="stylesheet" href="/style.css">
   <body>
     <h1>
-      <a href="/"><img src="/marlin.svg">Marlin</a>
-      <form action="/logout" method="POST" style="float: right;">
-        <button id="logout-button" type="submit">Logout</button>
-      </form>
+      <a href="/"><img id="logo" src="/marlin.svg">Marlin</a>
+      <div id="self-info">
+        <% if (!!loggedInUserEmail) { %>
+          <div id="logged-in-user-avatar">
+            <img src=<%= loggedInUserAvatar %> title=<%= loggedInUserEmail %> />
+          </div>
+          <form id="logout-form" action="/logout" method="POST">
+            <button id="logout-button" type="submit">Sign out</button>
+          </form>
+        <% } %>
+      </div>
     </h1>

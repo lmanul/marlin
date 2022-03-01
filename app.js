@@ -63,13 +63,12 @@ const checkAuthenticated = (req, res, next) => {
 }
 
 app.get("/login", (req, res) => {
-  res.render("login.ejs");
+  res.render("login.ejs", {'loggedInUserAvatar': null, 'loggedInUserEmail': null});
 })
 
 app.post("/logout", (req,res) => {
    req.logOut();
    res.redirect("/login");
-   console.log('-------> User Logged out');
 })
 
 list.init();
@@ -88,7 +87,11 @@ app.get('/', checkAuthenticated, (req, res) => {
       date: date,
     });
   }
-  res.render('home', {'boards': displayBoards});
+  res.render('home', {
+    'boards': displayBoards,
+    'loggedInUserAvatar': req.user.picture,
+    'loggedInUserEmail': req.user.email,
+  });
 });
 
 app.get('/new', checkAuthenticated, (req, res) => {

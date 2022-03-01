@@ -1,3 +1,5 @@
+/* Global */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -7,33 +9,59 @@ body {
   font-family: Roboto, Arial;
 }
 
+/* Title bar */
+
 h1 {
-  background-color: #2474bf;
-  color: white;
+  background-color: #82cbf9;
+  color: #02455d;
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
 h1 a {
-  color: white;
+  color: #02455d;
   text-decoration: none;
 }
 
-h1 img {
+#logo {
   height: 150px;
   margin-bottom: -20px;
   margin-top: -20px;
   vertical-align: middle;
 }
 
-main {
-  margin: 2ex;
+#self-info {
+  display: inline-block;
+  right: 10px;
+  position: absolute;
+  top: 10px;
+}
+
+#logged-in-user-avatar {
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+}
+
+#logged-in-user-avatar img {
+  max-width: 100%;
+}
+
+#logout-form {
+  display: inline-block;
 }
 
 #logout-button {
   cursor: pointer;
   padding: 1ex;
+  vertical-align: middle;
+}
+
+/* Body */
+
+main {
+  margin: 2ex;
 }
 
 .board-list-date {
