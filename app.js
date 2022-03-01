@@ -59,7 +59,6 @@ const checkAuthenticated = (req, res, next) => {
       req.user.email.endsWith(process.env.MARLIN_DOMAIN))) {
     return next();
   }
-  console.log(req);
   req.logOut();
   res.redirect("/login");
 };
