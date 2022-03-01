@@ -12,9 +12,10 @@ const list = require('./list')
 app.set('view engine', 'ejs');
 app.use(express.static('static', {}));
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+if (!process.env.MARLIN_GOOGLE_CLIENT_ID || !process.env.MARLIN_GOOGLE_CLIENT_SECRET) {
   console.log('Please set these two environment variables before starting ' +
-              'this server: GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET. You ' +
+              'this server: MARLIN_GOOGLE_CLIENT_ID and ' +
+              'MARLIN_GOOGLE_CLIENT_SECRET. You ' +
               'can get those from https://console.cloud.google.com/apis/credentials');
   process.exit();
 }
@@ -27,22 +28,22 @@ app.use(passport.session());
 
 const authUser = (request, accessToken, refreshToken, profile, done) => {
   return done(null, profile);
-}
+};
 
 passport.use(new GoogleStrategy({
-    clientID:     process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientID:     process.env.MARLIN_GOOGLE_CLIENT_ID,
+    clientSecret: process.env.MARLIN_GOOGLE_CLIENT_SECRET,
     callbackURL:  "/auth/google/callback",
     passReqToCallback   : true
   }, authUser));
 
 passport.serializeUser((user, done) => {
    done(null, user);
-})
+});
 
 passport.deserializeUser((user, done) => {
-  done (null, user);
-})
+  done(null, user);
+});
 
 app.get('/auth/google/callback', passport.authenticate( 'google', {
    successRedirect: '/',
@@ -54,18 +55,26 @@ app.get('/auth/google', passport.authenticate('google', {
 ));
 
 const checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated() && (!process.env.MARLIN_DOMAIN ||
+      req.user.email.endsWith(process.env.MARLIN_DOMAIN))) {
+    return next();
+  }
+  console.log(req);
+  req.logOut();
   res.redirect("/login");
-}
+};
 
 app.get("/login", (req, res) => {
-  res.render("login.ejs", {'loggedInUserAvatar': null, 'loggedInUserEmail': null});
-})
+  res.render("login.ejs", {
+    'loggedInUserAvatar': null,
+    'loggedInUserEmail': null,
+    'domain': process.env.MARLIN_DOMAIN});
+});
 
 app.post("/logout", (req,res) => {
    req.logOut();
    res.redirect("/login");
-})
+});
 
 list.init();
 
