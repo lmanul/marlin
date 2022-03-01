@@ -1,13 +1,30 @@
 <%- include('_head.ejs'); %>
 
+<style>
+  #create-board-form {
+    display: flex;
+    justify-content: center;
+    margin: 1ex auto;
+    width: 500px;
+  }
+  #title-input {
+    font-size: 120%;
+    margin-right: 1ex;
+    padding: 0.5ex;
+  }
+  #create-board-button {
+    padding: 1ex;
+  }
+</style>
+
 <main>
   <a href="/">Back</a>
 
   <br/>
   <br/>
 
-  <form action="/action-new">
-    <input type="text" name="title" placeholder="Title" autofocus />
-    <input type="submit" value="Create" />
+  <form id="create-board-form" action="/action-new">
+    <input id="title-input" type="text" name="title" placeholder="Title" autofocus />
+    <input id="create-board-button" type="submit" value="Create" />
   </form>
 </main>
