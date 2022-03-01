@@ -14,7 +14,8 @@ app.use(express.static('static', {}));
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   console.log('Please set these two environment variables before starting ' +
-              'this server: GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET');
+              'this server: GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET. You ' +
+              'can get those from https://console.cloud.google.com/apis/credentials');
   process.exit();
 }
 
