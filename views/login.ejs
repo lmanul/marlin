@@ -1,0 +1,15 @@
+<%- include('_head.ejs'); %>
+
+<style>
+  #google-sign-in {
+    cursor: pointer;
+    display: block;
+    margin: 10ex auto;
+    padding: 2ex;
+    width: 200px;
+  }
+</style>
+
+<form action="/auth/google" method="GET">
+  <button id="google-sign-in" type="submit">Sign in with Google</button>
+</form>
