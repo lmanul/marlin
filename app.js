@@ -76,12 +76,18 @@ app.post("/logout", (req,res) => {
    res.redirect("/login");
 });
 
-list.init();
+// Only start listening for requests when we're done initializing our data.
+list.init(() => {
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+  });
+});
 
 // User-visible paths
 
 app.get('/', checkAuthenticated, (req, res) => {
-  const boards = list.boards;
+  const boards = list.getBoards();
+  console.log(boards);
   const displayBoards = [];
   for (const board of boards) {
     const date = new Date(0);
@@ -124,8 +130,4 @@ app.get('/action-new', checkAuthenticated, (req, res) => {
   } else {
     res.redirect('/login');
   }
-});
-
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
 });
