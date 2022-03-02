@@ -29,6 +29,10 @@ class Board {
       ('' + dateObj.getDate()).padStart(2, '0');
   }
 
+  getQuestionsDir() {
+    return 'data/questions/' + this.id + '/';
+  }
+
   serialize() {
     return JSON.stringify(this);
   }

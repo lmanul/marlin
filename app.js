@@ -40,7 +40,7 @@ store.init(() => {
 app.get('/', authentication.checkAuthenticated, (req, res) => {
    res.render('home', {
     ...util.getLoggedInUserDetails(req),
-    'boards': list.getBoards(),
+    'boards': store.getBoards(),
   });
 });
 
@@ -51,7 +51,7 @@ app.get('/new', authentication.checkAuthenticated, (req, res) => {
 app.get('/b/:id', authentication.checkAuthenticated, (req, res) => {
   res.render('board', {
     ...util.getLoggedInUserDetails(req),
-    'board': list.getBoard(req.params.id),
+    'board': store.getBoard(req.params.id),
   });
 });
 

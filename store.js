@@ -34,7 +34,7 @@ const init = (callback) => {
       }
       fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
         if (err) {
-          console.log('Error reading file');
+          console.log('Error reading file ' + file);
         } else {
           const board = Board.deserialize(JSON.parse(data));
           addBoard(board);
