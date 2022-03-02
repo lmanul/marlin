@@ -15,11 +15,13 @@
   }
 </style>
 
-<div id="sign-in">
-  <% if (!!domain) { %>
-    <p>Please only use your <b>@<%= domain %></b> account.</p>
-  <% } %>
-  <form action="/auth/google" method="GET">
-    <button id="google-sign-in" type="submit">Sign in with Google</button>
-  </form>
-</div>
+<main>
+  <div id="sign-in">
+    <% if (!!domain) { %>
+      <p>Please only use your <b>@<%= domain %></b> account.</p>
+    <% } %>
+    <form action="/auth/google" method="GET">
+      <button id="google-sign-in" type="submit">Sign in with Google</button>
+    </form>
+  </div>
+</main>
