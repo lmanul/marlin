@@ -1,6 +1,12 @@
 <%- include('_head.ejs'); %>
 
+<script>
+  const board = JSON.parse('<%- JSON.stringify(board).replace("'", "&lsquo;") %>');
+</script>
+
 <main>
+  <a href="/">← Back</a>
+
   <div id="board-title"><%= board.title %></div>
   <div id="board-date"><%= board.getDisplayDate() %></div>
 
@@ -38,5 +44,6 @@
 </main>
 
 <script src="/s/boardpage.js"></script>
+<script>refresh();</script>
 
 <%- include('_footer.ejs'); %>

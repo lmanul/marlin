@@ -23,3 +23,12 @@ const onNewQuestionTextModified = (e) => {
   document.getElementById('board-add-question-remaining-chars').textContent = '' +
       e.target.value.length + '/280';
 };
+
+const refresh = () => {
+  fetch('/b-data/' + board.id).then((response) => {
+    response.json().then((data) => {
+      console.log('Response: ', data);
+    });
+  });
+  window.setTimeout(refresh, 5000);
+};
