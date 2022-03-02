@@ -1,7 +1,8 @@
 const fs = require('fs')
 const Board = require('./model/board')
 
-const DATA_DIR = 'data/boards/';
+const BOARDS_DIR = 'data/boards/';
+const QUESTIONS_DIR = 'data/questions/';
 
 let boards = {};
 let cachedSortedBoards = [];
@@ -11,10 +12,13 @@ let cachedSortedBoards = [];
  * lifetime.
  */
 const init = (callback) => {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(BOARDS_DIR)) {
+    fs.mkdirSync(BOARDS_DIR, { recursive: true });
   }
-  fs.readdir(DATA_DIR, (err, files) => {
+  if (!fs.existsSync(QUESTIONS_DIR)) {
+    fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
+  }
+  fs.readdir(BOARDS_DIR, (err, files) => {
     const jsonFiles = [];
     files.forEach(file => {
       if (file.endsWith('.json')) {
@@ -29,7 +33,7 @@ const init = (callback) => {
         return;
       }
       console.log('Reading "' + file + '"...');
-      fs.readFile(DATA_DIR + '/' + file, 'utf8', (err, data) => {
+      fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
         if (err) {
           console.log('Error reading file');
         } else {
@@ -63,6 +67,10 @@ const getBoards = (opt_creatorEmail) => {
 const add = (board) => {
   boards[board.id] = board;
   _updateCachedSortedBoards();
+  const questionsDirForThisBoard = QUESTIONS_DIR + '/' + board.id;
+  if (!fs.existsSync(questionsDirForThisBoard)) {
+    fs.mkdirSync(questionsDirForThisBoard, { recursive: true });
+  }
 };
 
 const _updateCachedSortedBoards = () => {
