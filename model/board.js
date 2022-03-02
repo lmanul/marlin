@@ -21,6 +21,14 @@ class Board {
       util.oneRandomLetter() + util.oneRandomLetter();
   }
 
+  getDisplayDate() {
+    const dateObj = new Date(0);
+    dateObj.setUTCSeconds(this.date);
+    return dateObj.getFullYear() + '-' +
+      ('' + (dateObj.getMonth() + 1)).padStart(2, '0') + '-' +
+      ('' + dateObj.getDate()).padStart(2, '0');
+  }
+
   serialize() {
     return JSON.stringify(this);
   }

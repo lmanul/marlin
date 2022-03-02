@@ -40,12 +40,10 @@ app.get('/', authentication.checkAuthenticated, (req, res) => {
   const boards = list.getBoards();
   const displayBoards = [];
   for (const board of boards) {
-    const date = new Date(0);
-    date.setUTCSeconds(board.date);
     displayBoards.push({
       id: board.id,
       title: board.title,
-      date: date,
+      date: board.getDisplayDate(),
       creatorEmail: board.creatorEmail,
     });
   }
