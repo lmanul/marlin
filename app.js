@@ -4,7 +4,7 @@ const app = express()
 const port = 8080
 
 const createboard = require('./createboard');
-const authentication = require('./authentication.js');
+const authentication = require('./authentication');
 const list = require('./list')
 const util = require('./util');
 

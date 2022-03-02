@@ -4,19 +4,13 @@ const Board = require('./model/board')
 
 const DATA_DIR = 'data/boards/';
 
-const oneRandomLetter = () => {
-  return String.fromCharCode(97 + Math.floor(Math.random() * 26));
-};
-
 const randomId = () => {
-  return oneRandomLetter() + oneRandomLetter() + oneRandomLetter() + oneRandomLetter() +
-    '-' + oneRandomLetter() + oneRandomLetter() + oneRandomLetter() + oneRandomLetter();
 };
 
 module.exports = {
   createPost: (title, creatorEmail) => {
     return new Promise((resolve, reject) => {
-      const newId = randomId();
+      const newId = Board.generateId();
       const board = new Board(
         newId, title, Math.round(new Date().getTime() / 1000), creatorEmail);
 

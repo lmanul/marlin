@@ -1,3 +1,5 @@
+const util = require('../util');
+
 class Board {
   constructor(id, title, date, creatorEmail) {
     this.id = id;
@@ -10,6 +12,13 @@ class Board {
   static deserialize(obj) {
     return new Board(obj.id, obj.title, obj.date || 0,
                      obj.creatorEmail || 'unknown@unknown.com');
+  }
+
+  static generateId() {
+    return util.oneRandomLetter() + util.oneRandomLetter() +
+      util.oneRandomLetter() + util.oneRandomLetter() + '-' +
+      util.oneRandomLetter() + util.oneRandomLetter() +
+      util.oneRandomLetter() + util.oneRandomLetter();
   }
 
   serialize() {
