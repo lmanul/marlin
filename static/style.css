@@ -127,9 +127,23 @@ main {
 }
 
 #board-add-question-text, #board-add-question-context {
-  font-family: Roboto, Arial;
-  font-size: large;
   padding: 2ex;
   resize: none;
+}
+
+#new-question-action-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#board-add-question-text, #board-add-question-context, #new-question-action-bar {
+  font-family: Roboto, Arial;
+  font-size: large;
   width: 82ex;
+}
+
+#cancel-new-question-button, #submit-new-question-button {
+  cursor: pointer;
+  font-size: large;
+  padding: 1ex;
 }

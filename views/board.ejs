@@ -9,6 +9,7 @@
   </div>
 
   <div id="board-add-question">
+    <p style="color: #850000">Once posted, your question can be deleted but not modified.</p>
     <form>
       <p>Ask as
         <input type="radio" name="anon" id="anon-no" checked />
@@ -28,7 +29,10 @@
                maxlength="200"
                placeholder="(Optional) Context"></input>
       </p>
-      <input id="submit-new-question-button" type="submit" value="Post">
+      <div id="new-question-action-bar">
+        <a href="#" id="cancel-new-question-button" onclick="hideNewQuestionForm()">Cancel</a>
+        <input id="submit-new-question-button" type="submit" value="Post">
+      </div>
     </form>
   </div>
 </main>
