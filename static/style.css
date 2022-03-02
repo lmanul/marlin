@@ -122,7 +122,13 @@ main {
   color: white;
 }
 
-#board-add-question-text {
-  font-size: 120%;
+#board-add-question {
+  display: none;
+}
+
+#board-add-question-text, #board-add-question-context {
+  font-family: Roboto, Arial;
+  font-size: large;
   padding: 2ex;
+  width: 82ex;
 }

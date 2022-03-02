@@ -4,7 +4,7 @@
   <div id="board-title"><%= board.title %></div>
   <div id="board-date"><%= board.getDisplayDate() %></div>
 
-  <div id="board-add-question-button">
+  <div id="board-add-question-button" onclick="showNewQuestionForm()">
     <span><big><b>+</b></big> Add a question</span>
   </div>
 
@@ -18,9 +18,32 @@
       </p>
       <p>
         <textarea id="board-add-question-text" cols="80" rows="5"
-                  maxlength="280"
+                  maxlength="280" required name="question-text"
                   placeholder="Type in your question"></textarea>
+        <span id="board-add-question-remaining-chars">0/280</span>
       </p>
+      <p>
+        <input id="board-add-question-context" type="text"
+               name="question-context" size="80"
+               placeholder="(Optional) Context"></input>
+      </p>
+      <input id="submit-new-question-button" type="submit" value="Post">
     </form>
   </div>
 </main>
+
+<script>
+  const showNewQuestionForm = () => {
+    document.getElementById('board-add-question').style.display = 'block';
+    document.getElementById('board-add-question-button').style.display = 'none';
+    const area = document.getElementById('board-add-question-text');
+    area.focus();
+    area.addEventListener(
+      'input', onNewQuestionTextModified);
+  };
+
+  const onNewQuestionTextModified = (e) => {
+    document.getElementById('board-add-question-remaining-chars').textContent = '' +
+        e.target.value.length + '/280';
+  };
+</script>
