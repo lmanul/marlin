@@ -90,6 +90,7 @@ app.get('/', checkAuthenticated, (req, res) => {
       id: board.id,
       title: board.title,
       date: date,
+      creatorEmail: board.creatorEmail,
     });
   }
   res.render('home', {
@@ -116,9 +117,13 @@ app.get('/boards', (req, res) => {
 });
 
 app.get('/action-new', checkAuthenticated, (req, res) => {
-  createboard.createPost(req.query.title).then((new_id) => {
-    res.redirect(`/b/${new_id}`);
-  });
+  if (!!req.user.email) {
+    createboard.createPost(req.query.title, req.user.email).then((new_id) => {
+      res.redirect(`/b/${new_id}`);
+    });
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.listen(port, () => {

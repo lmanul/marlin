@@ -14,11 +14,11 @@ const randomId = () => {
 };
 
 module.exports = {
-  createPost: (title) => {
+  createPost: (title, creatorEmail) => {
     return new Promise((resolve, reject) => {
       const newId = randomId();
       const board = new Board(
-        newId, title, Math.round(new Date().getTime() / 1000));
+        newId, title, Math.round(new Date().getTime() / 1000), creatorEmail);
 
       console.log('Writing file for "' + title + '"...');
       fs.writeFile(

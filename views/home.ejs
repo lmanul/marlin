@@ -9,10 +9,11 @@
         <% boards.forEach(function(board) { %>
           <li>
             <a href="/b/<%= board.id %>"><%= board.title %></a>
-            <span class="board-list-date">
-              (<%= board.date.getFullYear() + '-' +
+            <span class="board-list-metadata">
+              (created <%= board.date.getFullYear() + '-' +
                    ('' + (board.date.getMonth() + 1)).padStart(2, '0') + '-' +
-                   ('' + board.date.getDate()).padStart(2, '0') %>)
+                   ('' + board.date.getDate()).padStart(2, '0') %>
+               by <%= board.creatorEmail %>)
             </span>
           </li>
         <% }); %>
