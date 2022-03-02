@@ -130,5 +130,6 @@ main {
   font-family: Roboto, Arial;
   font-size: large;
   padding: 2ex;
+  resize: none;
   width: 82ex;
 }
