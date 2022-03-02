@@ -62,7 +62,7 @@ app.get('/new', authentication.checkAuthenticated, (req, res) => {
 app.get('/b/:id', authentication.checkAuthenticated, (req, res) => {
   res.render('board', {
     ...util.getLoggedInUserDetails(req),
-    'board_id': req.params.id
+    'board': list.getBoard(req.params.id),
   });
 });
 

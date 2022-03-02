@@ -64,6 +64,10 @@ const getBoards = (opt_creatorEmail) => {
   return filteredBoards;
 };
 
+const getBoard = (id) => {
+  return boards[id];
+};
+
 const add = (board) => {
   boards[board.id] = board;
   _updateCachedSortedBoards();
@@ -81,6 +85,7 @@ const _updateCachedSortedBoards = () => {
 
 module.exports = {
   add,
+  getBoard,
   getBoards,
   init,
 };
