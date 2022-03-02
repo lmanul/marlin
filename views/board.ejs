@@ -10,37 +10,8 @@
   <div id="board-title"><%= board.title %></div>
   <div id="board-date"><%= board.getDisplayDate() %></div>
 
-  <div id="board-add-question-button" onclick="showNewQuestionForm()">
-    <span><big><b>+</b></big> Add a question</span>
-  </div>
+  <%- include('_create_question.ejs') %>
 
-  <div id="board-add-question">
-    <p style="color: #850000">Once posted, your question can be deleted but not modified.</p>
-    <form>
-      <p>Ask as
-        <input type="radio" name="anon" id="anon-no" checked />
-        <label for="anon-no"><%= loggedInUserDisplayName %></label>
-        <input type="radio" name="anon" id="anon-yes" />
-        <label for="anon-yes">Anonymous</label>
-      </p>
-      <p>
-        <textarea id="board-add-question-text" cols="80" rows="5"
-                  maxlength="280" required name="question-text"
-                  placeholder="Type in your question"></textarea>
-        <span id="board-add-question-remaining-chars">0/280</span>
-      </p>
-      <p>
-        <input id="board-add-question-context" type="text"
-               name="question-context" size="80"
-               maxlength="200"
-               placeholder="(Optional) Context"></input>
-      </p>
-      <div id="new-question-action-bar">
-        <a href="#" id="cancel-new-question-button" onclick="hideNewQuestionForm()">Cancel</a>
-        <input id="submit-new-question-button" type="submit" value="Post">
-      </div>
-    </form>
-  </div>
 </main>
 
 <script src="/s/boardpage.js"></script>
