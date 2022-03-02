@@ -4,25 +4,26 @@
 
 <div id="board-add-question">
   <p style="color: #850000">Once posted, your question can be deleted but not modified.</p>
-  <form>
+  <form action="/action-new-question">
     <p>Ask as
-      <input type="radio" name="anon" id="anon-no" checked />
+      <input type="radio" name="anon" value="anon-no" checked />
       <label for="anon-no"><%= loggedInUserDisplayName %></label>
-      <input type="radio" name="anon" id="anon-yes" />
+      <input type="radio" name="anon" value="anon-yes" />
       <label for="anon-yes">Anonymous</label>
     </p>
     <p>
       <textarea id="board-add-question-text" cols="80" rows="5"
-                maxlength="280" required name="question-text"
+                maxlength="280" required name="questionText"
                 placeholder="Type in your question"></textarea>
       <span id="board-add-question-remaining-chars">0/280</span>
     </p>
     <p>
       <input id="board-add-question-context" type="text"
-             name="question-context" size="80"
+             name="questionContext" size="80"
              maxlength="200"
              placeholder="(Optional) Context"></input>
     </p>
+    <input id="board-add-question-board-id" type="hidden" name="boardId" value="<%= board.id %>">
     <div id="new-question-action-bar">
       <a href="#" id="cancel-new-question-button" onclick="hideNewQuestionForm()">Cancel</a>
       <input id="submit-new-question-button" type="submit" value="Post">

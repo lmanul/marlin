@@ -3,8 +3,9 @@ const express = require('express')
 const app = express()
 const port = 8080
 
-const createboard = require('./createboard');
 const authentication = require('./authentication');
+const createboard = require('./createboard');
+const createquestion = require('./createquestion');
 const list = require('./list')
 const util = require('./util');
 
@@ -66,8 +67,24 @@ app.get('/b-data/:id', (req, res) => {
 
 app.get('/action-new-board', authentication.checkAuthenticated, (req, res) => {
   if (!!req.user.email) {
-    createboard.createPost(req.query.title, req.user.email).then((new_id) => {
-      res.redirect(`/b/${new_id}`);
+    createboard.createBoard(req.query.title, req.user.email).then((newId) => {
+      res.redirect(`/b/${newId}`);
+    });
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.get('/action-new-question', authentication.checkAuthenticated, (req, res) => {
+  if (!!req.user.email) {
+    const authorEmail = req.query && req.query.anon === 'anon-no' ?
+          req.user.email : '';
+    const authorName = req.query && req.query.anon === 'anon-no' ?
+          req.user.displayName : '';
+    createquestion.createQuestion(req.query.boardId, req.query.questionText,
+                                  req.query.questionContext, authorEmail,
+                                  authorName).then((newId) => {
+      res.redirect('/b/' + req.query.boardId);
     });
   } else {
     res.redirect('/login');
