@@ -8,17 +8,12 @@ class Board {
   }
 
   static deserialize(obj) {
-    return new Board(obj.id, obj.title, obj.seconds_since_epoch || 0,
-                     obj.creator_email || 'unknown@unknown.com');
+    return new Board(obj.id, obj.title, obj.date || 0,
+                     obj.creatorEmail || 'unknown@unknown.com');
   }
 
   serialize() {
-    return JSON.stringify({
-      'id': this.id,
-      'title': this.title,
-      'seconds_since_epoch': this.date,
-      'creator_email': this.creatorEmail,
-    });
+    return JSON.stringify(this);
   }
 }
 

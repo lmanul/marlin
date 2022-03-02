@@ -21,6 +21,9 @@ const init = (callback) => {
         jsonFiles.push(file);
       }
     });
+    if (!jsonFiles.length) {
+      callback();
+    }
     jsonFiles.forEach(file => {
       if (!file.endsWith('.json')) {
         return;
