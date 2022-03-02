@@ -30,5 +30,6 @@ const refresh = () => {
       console.log('Response: ', data);
     });
   });
+  // TODO: exponential backup if the user is idle.
   window.setTimeout(refresh, 5000);
 };
