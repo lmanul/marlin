@@ -4,7 +4,13 @@ const Board = require('./model/board')
 const BOARDS_DIR = 'data/boards/';
 const QUESTIONS_DIR = 'data/questions/';
 
+// Board ID to board metadata.
 let boards = {};
+// Question ID to question metadata.
+let questions = {};
+// Board ID to list of questions.
+let questionIdsForBoard = {};
+// Boards, sorted by reverse chronological order.
 let cachedSortedBoards = [];
 
 /**
@@ -64,17 +70,25 @@ const getBoards = (opt_creatorEmail) => {
 };
 
 const getBoard = (id) => {
-  return boards[id];
+  const board = boards[id];
+  board['questionIds'] = questionIdsForBoard[id];
+  return board;
 };
 
 const addBoard = (board) => {
   boards[board.id] = board;
+  questionIdsForBoard[board.id] = [];
   _updateCachedSortedBoards();
   const questionsDirForThisBoard = QUESTIONS_DIR + '/' + board.id;
   if (!fs.existsSync(questionsDirForThisBoard)) {
     fs.mkdirSync(questionsDirForThisBoard, { recursive: true });
   }
 };
+
+const addQuestion = (question) => {
+  questions[question.id] = question;
+  questionIdsForBoard[question.boardId].push(question.id);
+}
 
 const _updateCachedSortedBoards = () => {
   cachedSortedBoards = Object.values(boards);
@@ -84,6 +98,7 @@ const _updateCachedSortedBoards = () => {
 
 module.exports = {
   addBoard,
+  addQuestion,
   getBoard,
   getBoards,
   init,

@@ -15,7 +15,7 @@ module.exports = {
 
       fs.writeFile(board.getQuestionsDir() + newId + '.json',
                    question.serialize(), 'utf8', () => {
-          // list.add(board);
+          store.addQuestion(question);
           console.log('Done');
           resolve(newId);
         });

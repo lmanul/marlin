@@ -62,7 +62,7 @@ app.get('/boards', (req, res) => {
 });
 
 app.get('/b-data/:id', (req, res) => {
-  res.json('{"test": "hello"}');
+  res.json(JSON.stringify(store.getBoard(req.params.id)));
 });
 
 app.get('/action-new-board', authentication.checkAuthenticated, (req, res) => {
