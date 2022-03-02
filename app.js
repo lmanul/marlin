@@ -37,19 +37,9 @@ list.init(() => {
 // User-visible paths
 
 app.get('/', authentication.checkAuthenticated, (req, res) => {
-  const boards = list.getBoards();
-  const displayBoards = [];
-  for (const board of boards) {
-    displayBoards.push({
-      id: board.id,
-      title: board.title,
-      date: board.getDisplayDate(),
-      creatorEmail: board.creatorEmail,
-    });
-  }
-  res.render('home', {
+   res.render('home', {
     ...util.getLoggedInUserDetails(req),
-    'boards': displayBoards,
+    'boards': list.getBoards(),
   });
 });
 

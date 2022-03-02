@@ -10,7 +10,7 @@
           <li>
             <a href="/b/<%= board.id %>"><%= board.title %></a>
             <span class="board-list-metadata">
-              (created <%= board.date %> by <%= board.creatorEmail %>)
+              (created <%= board.getDisplayDate() %> by <%= board.creatorEmail %>)
             </span>
           </li>
         <% }); %>
