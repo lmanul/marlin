@@ -6,7 +6,7 @@ const port = 8080
 const authentication = require('./authentication');
 const createboard = require('./createboard');
 const createquestion = require('./createquestion');
-const list = require('./list')
+const store = require('./store')
 const util = require('./util');
 
 app.set('view engine', 'ejs');
@@ -29,7 +29,7 @@ app.post("/logout", (req,res) => {
 });
 
 // Only start listening for requests when we're done initializing our data.
-list.init(() => {
+store.init(() => {
   app.listen(port, () => {
     console.log(`Listening on port ${port}`)
   });

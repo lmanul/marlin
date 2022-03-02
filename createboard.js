@@ -1,5 +1,5 @@
 const fs = require('fs')
-const list = require('./list')
+const store = require('./store')
 const Board = require('./model/board')
 
 const DATA_DIR = 'data/boards/';
@@ -14,7 +14,7 @@ module.exports = {
       console.log('Writing file for board "' + title + '"...');
       fs.writeFile(
         DATA_DIR + newId + '.json', board.serialize(), 'utf8', () => {
-          list.add(board);
+          store.addBoard(board);
           console.log('Done');
           resolve(newId);
         });

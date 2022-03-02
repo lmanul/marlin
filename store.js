@@ -32,14 +32,13 @@ const init = (callback) => {
       if (!file.endsWith('.json')) {
         return;
       }
-      console.log('Reading "' + file + '"...');
       fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
         if (err) {
           console.log('Error reading file');
         } else {
           const board = Board.deserialize(JSON.parse(data));
-          add(board);
-          console.log(`Read ${cachedSortedBoards.length} out of ${jsonFiles.length}`);
+          addBoard(board);
+          console.log(`Loaded board "${file}" (${cachedSortedBoards.length}/${jsonFiles.length})`);
           if (jsonFiles.length === cachedSortedBoards.length) {
             // We're done reading data from disk.
             callback();
@@ -68,7 +67,7 @@ const getBoard = (id) => {
   return boards[id];
 };
 
-const add = (board) => {
+const addBoard = (board) => {
   boards[board.id] = board;
   _updateCachedSortedBoards();
   const questionsDirForThisBoard = QUESTIONS_DIR + '/' + board.id;
@@ -84,7 +83,7 @@ const _updateCachedSortedBoards = () => {
 };
 
 module.exports = {
-  add,
+  addBoard,
   getBoard,
   getBoards,
   init,
