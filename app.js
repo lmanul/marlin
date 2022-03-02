@@ -9,7 +9,7 @@ const list = require('./list')
 const util = require('./util');
 
 app.set('view engine', 'ejs');
-app.use(express.static('static', {}));
+app.use('/s', express.static('static', {}));
 
 // Authentication
 
