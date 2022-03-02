@@ -97,3 +97,32 @@ main {
 }
 
 /* Board page */
+
+#board-title {
+  font-size: xx-large;
+  text-align: center;
+}
+
+#board-date {
+  color: #aaa;
+  text-align: center;
+}
+
+#board-add-question-button {
+  background-color: #d1f7ff;
+  border: 1px solid #2d5c66;
+  border-radius: 1ex;
+  display: inline-block;
+  padding: 2ex;
+  cursor: pointer;
+}
+
+#board-add-question-button:hover {
+  background-color: #2d5c66;
+  color: white;
+}
+
+#board-add-question-text {
+  font-size: 120%;
+  padding: 2ex;
+}

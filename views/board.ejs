@@ -2,6 +2,25 @@
 
 <main>
   <div id="board-title"><%= board.title %></div>
-  <div id="board-date"><%= board.date %></div>
-  <p>This is board <%= board.id %></p>
+  <div id="board-date"><%= board.getDisplayDate() %></div>
+
+  <div id="board-add-question-button">
+    <span><big><b>+</b></big> Add a question</span>
+  </div>
+
+  <div id="board-add-question">
+    <form>
+      <p>Ask as
+        <input type="radio" name="anon" id="anon-no" checked />
+        <label for="anon-no">Myself</label>
+        <input type="radio" name="anon" id="anon-yes" />
+        <label for="anon-yes">Anonymous</label>
+      </p>
+      <p>
+        <textarea id="board-add-question-text" cols="80" rows="5"
+                  maxlength="280"
+                  placeholder="Type in your question"></textarea>
+      </p>
+    </form>
+  </div>
 </main>
