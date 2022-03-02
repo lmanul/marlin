@@ -72,7 +72,7 @@ app.get('/boards', (req, res) => {
   res.json('{boards: []}');
 });
 
-app.get('/action-new', authentication.checkAuthenticated, (req, res) => {
+app.get('/action-new-board', authentication.checkAuthenticated, (req, res) => {
   if (!!req.user.email) {
     createboard.createPost(req.query.title, req.user.email).then((new_id) => {
       res.redirect(`/b/${new_id}`);

@@ -6,6 +6,7 @@ class Question {
     this.boardId = boardId;
     this.text = text;
     this.context = context;
+    this.comments = [];
   }
 
   static generateId() {
