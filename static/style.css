@@ -28,7 +28,7 @@ header {
   background-color: #82cbf9;
   color: #02455d;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1100px;
   padding: 0 2ex;
   position: relative;
   text-align: center;
@@ -92,12 +92,16 @@ main {
   background-color: #fff;
   height: 100%;
   margin: 0 auto;
-  max-width: 1200px;
-  padding: 2ex;
+  max-width: 1100px;
+  padding: 3ex 5ex;
 }
 
 .board-list-metadata {
   color: #aaa;
+}
+
+main li {
+  padding: 1ex 0;
 }
 
 /* Board page */
@@ -160,15 +164,27 @@ main {
 
 .question {
   background-color: #eee;
-  border: 1px solid rgba(0, 0, 100, 0.5);
+  border: 1px solid rgba(0, 0, 100, 0.3);
   border-radius: 1ex;
+  display: flex;
+  justify-content: stretch;
   margin: 2ex;
-  min-height: 10ex;
-  padding: 3ex;
+  padding: 2.5ex;
+}
+
+.question-data {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 #question-template {
   display: none;
+}
+
+.question-text {
+  font-size: large;
 }
 
 .question-author {
@@ -178,6 +194,27 @@ main {
 .question-context {
   color: #888;
   padding-top: 2ex;
+}
+
+.question-voting {
+  background-color: #d1f7ffcc;
+  border: 1px solid rgba(0, 0, 50, 0.2);
+  border-radius: 1ex;
+  margin-left: 4ex;
+  overflow: hidden;
+  text-align: center;
+  min-width: 9ex;
+}
+
+.question-voting-updown {
+  cursor: pointer;
+  font-size: xx-large;
+  padding: 0.5ex;
+}
+
+.question-voting-updown:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 100, 0.6);
 }
 
 .spinner {
