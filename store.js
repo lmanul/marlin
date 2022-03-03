@@ -17,7 +17,7 @@ let cachedSortedBoards = [];
  * Slow: reads data from disk. Should only be called at the start of the app's
  * lifetime.
  */
-const init = (callback) => {
+const init = (allBoardsLoadedCallback) => {
   _ensureDirectories();
   fs.readdir(BOARDS_DIR, (err, files) => {
     const jsonFiles = [];
@@ -30,20 +30,11 @@ const init = (callback) => {
       callback();
     }
     jsonFiles.forEach(file => {
-      if (!file.endsWith('.json')) {
-        return;
-      }
-      fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
-        if (err) {
-          console.log('Error reading file ' + file);
-        } else {
-          const board = Board.deserialize(JSON.parse(data));
-          addBoard(board);
-          console.log(`Loaded board "${file}" (${cachedSortedBoards.length}/${jsonFiles.length})`);
-          if (jsonFiles.length === cachedSortedBoards.length) {
-            // We're done reading data from disk.
-            callback();
-          }
+      _loadBoardFromDisk(file, () => {
+        console.log(`Loaded board "${file}" (${cachedSortedBoards.length}/${jsonFiles.length})`);
+        if (cachedSortedBoards.length === jsonFiles.length) {
+          // We're done reading data from disk.
+          allBoardsLoadedCallback();
         }
       });
     });
@@ -92,6 +83,18 @@ const _ensureDirectories = () => {
   if (!fs.existsSync(QUESTIONS_DIR)) {
     fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
   }
+};
+
+const _loadBoardFromDisk = (file, callback) => {
+  fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
+    if (err) {
+      console.log('Error reading file ' + file);
+    } else {
+      const board = Board.deserialize(JSON.parse(data));
+      addBoard(board);
+      callback();
+    }
+  });
 };
 
 const _updateCachedSortedBoards = () => {
