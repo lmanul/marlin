@@ -12,8 +12,7 @@ const setNewQuestionFormVisibility = (flag) => {
   if (flag) {
     const area = document.getElementById('board-add-question-text');
     area.focus();
-    area.addEventListener(
-      'input', onNewQuestionTextModified);
+    area.addEventListener('input', onNewQuestionTextModified);
   }
 };
 
@@ -37,8 +36,10 @@ const fetchQuestionData = (questionId) => {
       const obj = JSON.parse(data);
       questionTexts[questionId] = obj.text;
       questionContexts[questionId] = obj.context;
-      questionElements[questionId].querySelector('.question-text').textContent = questionTexts[questionId];
-      questionElements[questionId].querySelector('.question-context').textContent = questionContexts[questionId];
+      questionElements[questionId].querySelector('.question-text').textContent =
+          questionTexts[questionId];
+      questionElements[questionId].querySelector('.question-context').textContent =
+          questionContexts[questionId];
       questionElements[questionId].querySelector('.spinner').style.display = 'none';
     });
   });
