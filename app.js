@@ -63,8 +63,12 @@ app.get('/boards', (req, res) => {
   res.json('{boards: []}');
 });
 
-app.get('/b-data/:id', (req, res) => {
+app.get('/b-data/:id', authentication.checkAuthenticated, (req, res) => {
   res.json(JSON.stringify(store.getBoard(req.params.id)));
+});
+
+app.get('/q-data/:id', authentication.checkAuthenticated, (req, res) => {
+  res.json(JSON.stringify(store.getQuestion(req.params.id)));
 });
 
 app.get('/action-new-board', authentication.checkAuthenticated, (req, res) => {

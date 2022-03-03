@@ -117,6 +117,7 @@ main {
   border: 1px solid #2d5c66;
   border-radius: 1ex;
   display: inline-block;
+  margin: 2ex;
   padding: 2ex;
   cursor: pointer;
 }
@@ -150,4 +151,37 @@ main {
   cursor: pointer;
   font-size: large;
   padding: 1ex;
+}
+
+#questions {
+}
+
+/* Single question */
+
+.question {
+  background-color: #eee;
+  border: 1px solid rgba(0, 0, 100, 0.5);
+  border-radius: 1ex;
+  margin: 2ex;
+  min-height: 10ex;
+  padding: 1ex;
+}
+
+#question-template {
+  display: none;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

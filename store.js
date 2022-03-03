@@ -1,5 +1,6 @@
 const fs = require('fs')
 const Board = require('./model/board')
+const Question = require('./model/question')
 
 const BOARDS_DIR = 'data/boards/';
 const QUESTIONS_DIR = 'data/questions/';
@@ -56,6 +57,10 @@ const getBoard = (id) => {
   return board;
 };
 
+const getQuestion = (id) => {
+  return questions[id];
+};
+
 const addBoard = (board) => {
   boards[board.id] = board;
   questionIdsForBoard[board.id] = [];
@@ -109,13 +114,17 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
       jsonFiles.forEach(file => {
         questionPromises.push(_loadQuestionFromDisk(board.getQuestionsDir() + file));
       });
-      return Promise.all(questionPromises);
+      return Promise.all(questionPromises).then(() => {
+        resolve();
+      });
     });
   });
 };
 
 const _loadQuestionFromDisk = (file) => {
   return fs.promises.readFile(file, 'utf8').then((data) => {
+    const question = Question.deserialize(JSON.parse(data));
+    addQuestion(question);
     console.log('Loaded ' + file);
   }).catch((err) => {
     console.log('Could not load question file ' + file + ': ' + err);
@@ -133,5 +142,6 @@ module.exports = {
   addQuestion,
   getBoard,
   getBoards,
+  getQuestion,
   init,
 };

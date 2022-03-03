@@ -12,7 +12,7 @@ class Question {
     this.authorName = authorName;
     this.comments = [];
     this.upVotes = upVotes || 0;
-    this.downVotes = downVotres || 0;
+    this.downVotes = downVotes || 0;
     this.mehVotes = mehVotes || 0;
   }
 
@@ -24,7 +24,7 @@ class Question {
   static deserialize(obj) {
     return new Question(obj.id, obj.boardId, obj.text, obj.context,
                         obj.authorEmail, obj.authorName, obj.upVotes,
-                       obj, downVotes, obj.mehVotes);
+                       obj.downVotes, obj.mehVotes);
   }
 
   serialize() {
