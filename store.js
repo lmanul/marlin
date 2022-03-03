@@ -81,20 +81,10 @@ const _ensureDirectories = () => {
 };
 
 const _loadBoardFromDisk = (file) => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(BOARDS_DIR + '/' + file, 'utf8', (err, data) => {
-      if (err) {
-        console.log('Error reading file ' + file);
-      } else {
-        const board = Board.deserialize(JSON.parse(data));
-        addBoard(board);
-        _loadQuestionsForBoardFromDisk(board.id).then(() => {
-          resolve();
-        }).catch((err) => {
-          reject(err);
-        });
-      }
-    });
+  return fs.promises.readFile(BOARDS_DIR + '/' + file, 'utf8').then((data) => {
+    const board = Board.deserialize(JSON.parse(data));
+    addBoard(board);
+    return _loadQuestionsForBoardFromDisk(board.id);
   });
 };
 
@@ -105,7 +95,6 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
     if (!board) {
       reject('I could not find board "' + boardId + '"');
     }
-    console.log('That is dir ' + board.getQuestionsDir());
     fs.readdir(board.getQuestionsDir(), (err, files) => {
       if (err) {
         reject(err);
@@ -113,15 +102,23 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
       const jsonFiles = [];
       files.forEach(file => {
         if (file.endsWith('.json')) {
-          console.log('Adding ' + file + ' for reading');
           jsonFiles.push(file);
         }
       });
       if (!jsonFiles.length) {
         resolve();
       }
-      resolve();
+      let questionPromises = [];
+      jsonFiles.forEach(file => {
+        questionPromises.push(_loadQuestionFromDisk(board.getQuestionsDir() + file));
+      });
+      return Promise.all(questionPromises);
     });
+  });
+};
+
+const _loadQuestionFromDisk = (file) => {
+  return fs.promises.readFile(file, 'utf8').then((data) => {
   });
 };
 
