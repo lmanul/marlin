@@ -18,12 +18,7 @@ let cachedSortedBoards = [];
  * lifetime.
  */
 const init = (callback) => {
-  if (!fs.existsSync(BOARDS_DIR)) {
-    fs.mkdirSync(BOARDS_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(QUESTIONS_DIR)) {
-    fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
-  }
+  _ensureDirectories();
   fs.readdir(BOARDS_DIR, (err, files) => {
     const jsonFiles = [];
     files.forEach(file => {
@@ -89,6 +84,15 @@ const addQuestion = (question) => {
   questions[question.id] = question;
   questionIdsForBoard[question.boardId].push(question.id);
 }
+
+const _ensureDirectories = () => {
+  if (!fs.existsSync(BOARDS_DIR)) {
+    fs.mkdirSync(BOARDS_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(QUESTIONS_DIR)) {
+    fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
+  }
+};
 
 const _updateCachedSortedBoards = () => {
   cachedSortedBoards = Object.values(boards);

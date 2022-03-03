@@ -12,6 +12,7 @@ class Question {
     this.comments = [];
     this.upVotes = 0;
     this.downVotes = 0;
+    this.mehVotes = 0;
   }
 
   static generateId() {
