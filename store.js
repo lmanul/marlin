@@ -54,6 +54,14 @@ const getBoards = (opt_creatorEmail) => {
 const getBoard = (id) => {
   const board = boards[id];
   board['questionIds'] = questionIdsForBoard[id];
+  const questionVotes = {};
+  questionIdsForBoard[id].forEach((questionId) => {
+    const question = questions[questionId];
+    questionVotes[questionId] = {
+      'up': question.upVotes, 'down': question.downVotes, 'meh': question.mehVotes
+    };
+  });
+  board['questionVotes'] = questionVotes;
   return board;
 };
 

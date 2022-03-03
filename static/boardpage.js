@@ -2,6 +2,7 @@ const QUESTION_HEIGHT_EX = 25;
 const QUESTION_MARGIN_EX = 2;
 
 let questionIds = [];
+let questionVotes = {};
 const questionTexts = {};
 const questionContexts = {};
 const questionAuthors = {};
@@ -54,9 +55,22 @@ const topPositionForIndex = (index) => {
   return (index * (QUESTION_HEIGHT_EX + QUESTION_MARGIN_EX)) + 'ex';
 };
 
+const getQuestionScore = (questionId) => {
+  const votes = questionVotes[questionId];
+  console.log(votes);
+  if (!votes) {
+    return 0;
+  }
+  return Math.floor(votes.up - 0.5 * votes.meh - 1.5 * votes.down);
+};
+
 const positionQuestions = () => {
   let i = 0;
-  questionIds.forEach((id) => {
+  let sortedQuestionIds = [...questionIds];
+  sortedQuestionIds.sort((a, b) => {
+    return getQuestionScore(a) - getQuestionScore(b);
+  });
+  sortedQuestionIds.forEach((id) => {
     const el = questionElements[id];
     el.style.top = topPositionForIndex(i++);
   });
@@ -89,6 +103,7 @@ const refresh = () => {
     response.json().then((data) => {
       const obj = JSON.parse(data);
       questionIds = obj.questionIds;
+      questionVotes = obj.questionVotes;
       const container = document.getElementById('questions');
       container.querySelector('.spinner').style.display = 'none';
       if (!questionIds || !questionIds.length) {
