@@ -35,10 +35,13 @@ const fetchQuestionData = (questionId) => {
       const obj = JSON.parse(data);
       questionTexts[questionId] = obj.text;
       questionContexts[questionId] = obj.context;
+      questionAuthors[questionId] = obj.authorName;
       questionElements[questionId].querySelector('.question-text').textContent =
           questionTexts[questionId];
       questionElements[questionId].querySelector('.question-context').textContent =
           questionContexts[questionId];
+      questionElements[questionId].querySelector('.question-author').textContent =
+          '— ' + (questionAuthors[questionId] || 'Anonymous');
       questionElements[questionId].querySelector('.spinner').style.display = 'none';
     });
   });
@@ -72,7 +75,8 @@ const refresh = () => {
       const container = document.getElementById('questions');
       container.querySelector('.spinner').style.display = 'none';
       if (!questionIds || !questionIds.length) {
-        container.innerHTML = '<big style="display: block; text-align: center;">∅</big>';
+        container.innerHTML =
+            '<big style="display: block; text-align: center;">∅</big>';
       }
       ensureQuestionData();
       ensureQuestionElements();

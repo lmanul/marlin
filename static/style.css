@@ -164,11 +164,20 @@ main {
   border-radius: 1ex;
   margin: 2ex;
   min-height: 10ex;
-  padding: 1ex;
+  padding: 3ex;
 }
 
 #question-template {
   display: none;
+}
+
+.question-author {
+  text-align: right;
+}
+
+.question-context {
+  color: #888;
+  padding-top: 2ex;
 }
 
 .spinner {
