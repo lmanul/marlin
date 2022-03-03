@@ -95,10 +95,7 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
     if (!board) {
       reject('I could not find board "' + boardId + '"');
     }
-    fs.readdir(board.getQuestionsDir(), (err, files) => {
-      if (err) {
-        reject(err);
-      }
+    return fs.promises.readdir(board.getQuestionsDir()).then((files) => {
       const jsonFiles = [];
       files.forEach(file => {
         if (file.endsWith('.json')) {
