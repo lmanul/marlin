@@ -69,7 +69,11 @@ const refresh = () => {
     response.json().then((data) => {
       const obj = JSON.parse(data);
       questionIds = obj.questionIds;
-      document.getElementById('questions').querySelector('.spinner').style.display = 'none';
+      const container = document.getElementById('questions');
+      container.querySelector('.spinner').style.display = 'none';
+      if (!questionIds || !questionIds.length) {
+        container.innerHTML = '<big style="display: block; text-align: center;">∅</big>';
+      }
       ensureQuestionData();
       ensureQuestionElements();
     });
