@@ -167,6 +167,7 @@ main li {
   border: 1px solid rgba(0, 0, 100, 0.3);
   border-radius: 1ex;
   display: flex;
+  height: 25ex;
   justify-content: stretch;
   margin: 2ex;
   padding: 2.5ex;
