@@ -33,6 +33,8 @@ store.init().then(() => {
   app.listen(port, () => {
     console.log(`Listening on port ${port}`)
   });
+}).catch((err) => {
+  console.log('Failed to initialize the store: ' + err);
 });
 
 // User-visible paths

@@ -116,6 +116,9 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
 
 const _loadQuestionFromDisk = (file) => {
   return fs.promises.readFile(file, 'utf8').then((data) => {
+    console.log('Loaded ' + file);
+  }).catch((err) => {
+    console.log('Could not load question file ' + file + ': ' + err);
   });
 };
 
