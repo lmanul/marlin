@@ -29,7 +29,7 @@ app.post("/logout", (req,res) => {
 });
 
 // Only start listening for requests when we're done initializing our data.
-store.init(() => {
+store.init().then(() => {
   app.listen(port, () => {
     console.log(`Listening on port ${port}`)
   });
