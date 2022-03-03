@@ -32,7 +32,6 @@ const onNewQuestionTextModified = (e) => {
 const fetchQuestionData = (questionId) => {
   fetch('/q-data/' + questionId).then((response) => {
     response.json().then((data) => {
-      console.log(data);
       const obj = JSON.parse(data);
       questionTexts[questionId] = obj.text;
       questionContexts[questionId] = obj.context;
@@ -70,6 +69,7 @@ const refresh = () => {
     response.json().then((data) => {
       const obj = JSON.parse(data);
       questionIds = obj.questionIds;
+      document.getElementById('questions').querySelector('.spinner').style.display = 'none';
       ensureQuestionData();
       ensureQuestionElements();
     });
