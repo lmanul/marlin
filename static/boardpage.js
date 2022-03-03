@@ -1,3 +1,6 @@
+const QUESTION_HEIGHT_EX = 25;
+const QUESTION_MARGIN_EX = 2;
+
 let questionIds = [];
 const questionTexts = {};
 const questionContexts = {};
@@ -47,6 +50,20 @@ const fetchQuestionData = (questionId) => {
   });
 };
 
+const topPositionForIndex = (index) => {
+  return (index * (QUESTION_HEIGHT_EX + QUESTION_MARGIN_EX)) + 'ex';
+};
+
+const positionQuestions = () => {
+  let i = 0;
+  questionIds.forEach((id) => {
+    const el = questionElements[id];
+    el.style.top = topPositionForIndex(i++);
+  });
+  document.querySelector('main').style.height =
+      (questionIds.length + 1) * (QUESTION_HEIGHT_EX + QUESTION_MARGIN_EX) + 'ex';
+};
+
 const ensureQuestionData = () => {
   questionIds.forEach((id) => {
     if (questionTexts[id] === undefined || questionContexts[id] === undefined) {
@@ -80,6 +97,7 @@ const refresh = () => {
       }
       ensureQuestionData();
       ensureQuestionElements();
+      positionQuestions();
     });
   });
   // TODO: exponential backoff if the user is idle.
