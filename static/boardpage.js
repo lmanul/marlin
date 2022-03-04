@@ -3,7 +3,7 @@ const QUESTION_MARGIN_EX = 2;
 
 let questionIds = [];
 let questionVotes = {};
-let ownQuestionVotes = {};
+let ownVotes = {};
 const questionTexts = {};
 const questionContexts = {};
 const questionAuthors = {};
@@ -123,6 +123,8 @@ const refresh = () => {
       questionVotes = obj.questionVotes;
       const totalVoteCount = obj.totalVoteCount;
       document.getElementById('total-vote-count').textContent = totalVoteCount;
+      ownVotes = obj.ownVotes;
+      console.log(ownVotes);
       const container = document.getElementById('questions');
       const globalSpinner = container.querySelector('.spinner');
       if (!!globalSpinner) {

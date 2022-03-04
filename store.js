@@ -115,6 +115,22 @@ const vote = (questionId, vote, email) => {
   console.log(question);
 };
 
+const getVotesForBoardByUser = (boardId, email) => {
+  const userVotes = {};
+  const questionIds = questionIdsForBoard[boardId];
+  questionIds.forEach((questionId) => {
+    const question = questions[questionId];
+    if (question.upVoters.has(email)) {
+      userVotes[questionId] = 'up';
+    } else if (question.mehVoters.has(email)) {
+      userVotes[questionId] = 'meh';
+    } else if (question.downVoters.has(email)) {
+      userVotes[questionId] = 'down';
+    }
+  });
+  return userVotes;
+};
+
 const _ensureDirectories = () => {
   if (!fs.existsSync(BOARDS_DIR)) {
     fs.mkdirSync(BOARDS_DIR, { recursive: true });
@@ -182,6 +198,7 @@ module.exports = {
   getBoard,
   getBoards,
   getQuestion,
+  getVotesForBoardByUser,
   init,
   vote,
 };
