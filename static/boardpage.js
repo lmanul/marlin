@@ -9,6 +9,8 @@ const questionContexts = {};
 const questionAuthors = {};
 const questionElements = {};
 
+let refreshTimeoutId = 0;
+
 const setNewQuestionFormVisibility = (flag) => {
   document.getElementById('board-add-question').style.display =
       flag ? 'block' : 'none';
@@ -81,7 +83,7 @@ const positionQuestions = () => {
 
 const vote = (questionId, vote) => {
   fetch('/action-vote/' + questionId + '/' + vote).then(() => {
-    console.log('Voted "' + vote + '" on question "' + questionId + '"');
+    window.setTimeout(refresh, 200);
   });
 };
 
@@ -111,6 +113,9 @@ const ensureQuestionElements = () => {
 };
 
 const refresh = () => {
+  if (!!refreshTimeoutId) {
+    window.clearTimeout(refreshTimeoutId);
+  }
   fetch('/b-data/' + board.id).then((response) => {
     response.json().then((data) => {
       const obj = JSON.parse(data);
@@ -133,5 +138,5 @@ const refresh = () => {
     });
   });
   // TODO: exponential backoff if the user is idle.
-  window.setTimeout(refresh, 5000);
+  refreshTimeoutId = window.setTimeout(refresh, 5000);
 };
