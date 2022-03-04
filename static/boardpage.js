@@ -61,14 +61,15 @@ const getQuestionScore = (questionId) => {
   if (!votes) {
     return 0;
   }
-  return Math.floor(votes.up - 0.5 * votes.meh - 1.5 * votes.down);
+  const score = Math.floor(votes.up - 0.5 * votes.meh - 1.5 * votes.down);
+  return score;
 };
 
 const positionQuestions = () => {
   let i = 0;
   let sortedQuestionIds = [...questionIds];
   sortedQuestionIds.sort((a, b) => {
-    return getQuestionScore(a) - getQuestionScore(b);
+    return getQuestionScore(b) - getQuestionScore(a);
   });
   sortedQuestionIds.forEach((id) => {
     const el = questionElements[id];
@@ -76,6 +77,12 @@ const positionQuestions = () => {
   });
   document.querySelector('main').style.height =
       (questionIds.length + 1) * (QUESTION_HEIGHT_EX + QUESTION_MARGIN_EX) + 'ex';
+};
+
+const vote = (questionId, vote) => {
+  fetch('/action-vote/' + questionId + '/' + vote).then(() => {
+    console.log('Voted "' + vote + '" on question "' + questionId + '"');
+  });
 };
 
 const ensureQuestionData = () => {
@@ -92,6 +99,11 @@ const ensureQuestionElements = () => {
     if (!questionElements[id]) {
       const el = template.cloneNode(true /* deep */);
       el.setAttribute('id', 'question-' + id);
+      const voteEls = el.querySelectorAll('.question-voting-updown');
+      voteEls.forEach((el) => { el.setAttribute('data-id', id); });
+      el.addEventListener('click', (e) => {
+        vote(e.target.getAttribute('data-id'), e.target.getAttribute('data'));
+      });
       document.getElementById('questions').appendChild(el);
       questionElements[id] = el;
     }

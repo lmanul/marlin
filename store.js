@@ -58,9 +58,9 @@ const getBoard = (id) => {
   questionIdsForBoard[id].forEach((questionId) => {
     const question = questions[questionId];
     questionVotes[questionId] = {
-      'up': question.upVoters.length,
-      'down': question.downVoters.length,
-      'meh': question.mehVoters.length
+      'up': question.upVoters.size,
+      'down': question.downVoters.size,
+      'meh': question.mehVoters.size,
     };
   });
   board['questionVotes'] = questionVotes;
@@ -87,7 +87,28 @@ const addQuestion = (question) => {
 }
 
 const vote = (questionId, vote, email) => {
-  questions[question.id] = question;
+  const question = questions[questionId];
+  if (!question) {
+    return;
+  }
+  switch(vote) {
+    case 'up':
+      question.upVoters.add(email);
+      question.downVoters.delete(email);
+      question.mehVoters.delete(email);
+      break;
+    case 'meh':
+      question.mehVoters.add(email);
+      question.upVoters.delete(email);
+      question.downVoters.delete(email);
+      break;
+    case 'down':
+      question.downVoters.add(email);
+      question.upVoters.delete(email);
+      question.mehVoters.delete(email);
+      break;
+  }
+  console.log(question);
 };
 
 const _ensureDirectories = () => {

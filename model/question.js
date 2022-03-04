@@ -11,24 +11,32 @@ class Question {
     this.authorEmail = authorEmail;
     this.authorName = authorName;
     this.comments = [];
-    this.upVoters = upVoters || [];
-    this.downVoters = downVoters || [];
-    this.mehVoters = mehVoters || [];
+    this.upVoters = upVoters || new Set();
+    this.downVoters = downVoters || new Set();
+    this.mehVoters = mehVoters || new Set();
   }
 
   static generateId() {
     return util.oneRandomLetter() + util.oneRandomLetter() +
+      util.oneRandomLetter() + util.oneRandomLetter() + '-' +
+      util.oneRandomLetter() + util.oneRandomLetter() +
       util.oneRandomLetter() + util.oneRandomLetter();
   }
 
   static deserialize(obj) {
     return new Question(obj.id, obj.boardId, obj.text, obj.context,
-                        obj.authorEmail, obj.authorName, obj.upVoters,
-                       obj.downVoters, obj.mehVoters);
+                        obj.authorEmail, obj.authorName, new Set(obj.upVoters),
+                        new Set(obj.downVoters), new Set(obj.mehVoters));
   }
 
   serialize() {
-    return JSON.stringify(this);
+    const obj = {
+      ...this,
+      upVoters: Array.from(this.upVoters),
+      mehVoters: Array.from(this.mehVoters),
+      downVoters: Array.from(this.downVoters),
+    };
+    return JSON.stringify(obj);
   }
 }
 

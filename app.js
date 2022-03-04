@@ -96,3 +96,8 @@ app.get('/action-new-question', authentication.checkAuthenticated, (req, res) =>
     res.redirect('/login');
   }
 });
+
+app.get('/action-vote/:id/:vote', authentication.checkAuthenticated, (req, res) => {
+  store.vote(req.params.id, req.params.vote, req.user.email);
+  res.send('OK');
+});

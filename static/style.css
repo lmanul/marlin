@@ -173,6 +173,7 @@ main li {
   margin: 2ex;
   padding: 2.5ex;
   position: absolute;
+  transition: top 0.5s ease-out;
   width: 116ex;
 }
 
