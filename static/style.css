@@ -231,8 +231,12 @@ a.create-button {
   padding: 0.5ex;
 }
 
+.question-voting-updown.active {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 .question-voting-updown:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
   color: rgba(0, 0, 100, 0.6);
 }
 

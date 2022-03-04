@@ -112,6 +112,18 @@ const ensureQuestionElements = () => {
   });
 };
 
+const updateCurrentVotes = () => {
+  for (const questionId in ownVotes) {
+    const questionEl = questionElements[questionId];
+    const all = questionEl.querySelectorAll('.question-voting-updown');
+    all.forEach((el) => { el.classList.remove('active'); });
+    const activeEl = questionEl.querySelector('[data="' + ownVotes[questionId] + '"]');
+    if (!!activeEl) {
+      activeEl.classList.add('active');
+    }
+  }
+};
+
 const refresh = () => {
   if (!!refreshTimeoutId) {
     window.clearTimeout(refreshTimeoutId);
@@ -124,7 +136,6 @@ const refresh = () => {
       const totalVoteCount = obj.totalVoteCount;
       document.getElementById('total-vote-count').textContent = totalVoteCount;
       ownVotes = obj.ownVotes;
-      console.log(ownVotes);
       const container = document.getElementById('questions');
       const globalSpinner = container.querySelector('.spinner');
       if (!!globalSpinner) {
@@ -137,6 +148,7 @@ const refresh = () => {
       ensureQuestionData();
       ensureQuestionElements();
       positionQuestions();
+      updateCurrentVotes();
     });
   });
   // TODO: exponential backoff if the user is idle.
