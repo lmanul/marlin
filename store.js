@@ -58,7 +58,9 @@ const getBoard = (id) => {
   questionIdsForBoard[id].forEach((questionId) => {
     const question = questions[questionId];
     questionVotes[questionId] = {
-      'up': question.upVotes, 'down': question.downVotes, 'meh': question.mehVotes
+      'up': question.upVoters.length,
+      'down': question.downVoters.length,
+      'meh': question.mehVoters.length
     };
   });
   board['questionVotes'] = questionVotes;
@@ -83,6 +85,10 @@ const addQuestion = (question) => {
   questions[question.id] = question;
   questionIdsForBoard[question.boardId].push(question.id);
 }
+
+const vote = (questionId, vote, email) => {
+  questions[question.id] = question;
+};
 
 const _ensureDirectories = () => {
   if (!fs.existsSync(BOARDS_DIR)) {
@@ -152,4 +158,5 @@ module.exports = {
   getBoards,
   getQuestion,
   init,
+  vote,
 };

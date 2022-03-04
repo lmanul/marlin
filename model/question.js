@@ -2,7 +2,7 @@ const util = require('../util');
 
 class Question {
   constructor(id, boardId, text, context, authorEmail, authorName,
-             upVotes, downVotes, mehVotes) {
+             upVoters, downVoters, mehVoters) {
     this.id = id;
     this.boardId = boardId;
     this.text = text;
@@ -11,9 +11,9 @@ class Question {
     this.authorEmail = authorEmail;
     this.authorName = authorName;
     this.comments = [];
-    this.upVotes = upVotes || 0;
-    this.downVotes = downVotes || 0;
-    this.mehVotes = mehVotes || 0;
+    this.upVoters = upVoters || [];
+    this.downVoters = downVoters || [];
+    this.mehVoters = mehVoters || [];
   }
 
   static generateId() {
@@ -23,8 +23,8 @@ class Question {
 
   static deserialize(obj) {
     return new Question(obj.id, obj.boardId, obj.text, obj.context,
-                        obj.authorEmail, obj.authorName, obj.upVotes,
-                       obj.downVotes, obj.mehVotes);
+                        obj.authorEmail, obj.authorName, obj.upVoters,
+                       obj.downVoters, obj.mehVoters);
   }
 
   serialize() {

@@ -3,6 +3,7 @@ const QUESTION_MARGIN_EX = 2;
 
 let questionIds = [];
 let questionVotes = {};
+let ownQuestionVotes = {};
 const questionTexts = {};
 const questionContexts = {};
 const questionAuthors = {};
@@ -57,7 +58,6 @@ const topPositionForIndex = (index) => {
 
 const getQuestionScore = (questionId) => {
   const votes = questionVotes[questionId];
-  console.log(votes);
   if (!votes) {
     return 0;
   }
@@ -105,7 +105,10 @@ const refresh = () => {
       questionIds = obj.questionIds;
       questionVotes = obj.questionVotes;
       const container = document.getElementById('questions');
-      container.querySelector('.spinner').style.display = 'none';
+      const globalSpinner = container.querySelector('.spinner');
+      if (!!globalSpinner) {
+        globalSpinner.style.display = 'none';
+      }
       if (!questionIds || !questionIds.length) {
         container.innerHTML =
             '<big style="display: block; text-align: center;">∅</big>';
