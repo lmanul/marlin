@@ -59,10 +59,6 @@ app.get('/b/:id', authentication.checkAuthenticated, (req, res) => {
 
 // Invisible paths
 
-app.get('/boards', (req, res) => {
-  res.json('{boards: []}');
-});
-
 app.get('/b-data/:id', authentication.checkAuthenticated, (req, res) => {
   res.json(JSON.stringify(store.getBoard(req.params.id)));
 });
