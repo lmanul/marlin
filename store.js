@@ -112,7 +112,6 @@ const vote = (questionId, vote, email) => {
       question.mehVoters.delete(email);
       break;
   }
-  console.log(question);
 };
 
 const getVotesForBoardByUser = (boardId, email) => {
