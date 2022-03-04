@@ -55,15 +55,19 @@ const getBoard = (id) => {
   const board = boards[id];
   board['questionIds'] = questionIdsForBoard[id];
   const questionVotes = {};
+  let totalVoteCount = 0;
   questionIdsForBoard[id].forEach((questionId) => {
     const question = questions[questionId];
+    const ups = question.upVoters.size;
+    const mehs = question.mehVoters.size;
+    const downs = question.downVoters.size;
     questionVotes[questionId] = {
-      'up': question.upVoters.size,
-      'down': question.downVoters.size,
-      'meh': question.mehVoters.size,
+      'up': ups, 'down': downs, 'meh': mehs,
     };
+    totalVoteCount += ups + mehs + downs;
   });
   board['questionVotes'] = questionVotes;
+  board['totalVoteCount'] = totalVoteCount;
   return board;
 };
 

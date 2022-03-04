@@ -116,6 +116,7 @@ const refresh = () => {
       const obj = JSON.parse(data);
       questionIds = obj.questionIds;
       questionVotes = obj.questionVotes;
+      const totalVoteCount = obj.totalVoteCount;
       const container = document.getElementById('questions');
       const globalSpinner = container.querySelector('.spinner');
       if (!!globalSpinner) {
