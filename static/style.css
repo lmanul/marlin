@@ -90,9 +90,9 @@ header a {
 
 main {
   background-color: #fff;
-  height: 100%;
   margin: 0 auto;
   max-width: 130ex;
+  min-height: 80ex;
   padding: 3ex 5ex;
 }
 
@@ -126,6 +126,12 @@ main li {
   cursor: pointer;
 }
 
+#total-votes {
+  display: inline-block;
+  float: right;
+  padding: 2ex;
+}
+
 #board-add-question-button:hover {
   background-color: #2d5c66;
   color: white;
@@ -133,6 +139,7 @@ main li {
 
 #board-add-question {
   display: none;
+  margin-bottom: 8ex;
 }
 
 #board-add-question-text, #board-add-question-context {

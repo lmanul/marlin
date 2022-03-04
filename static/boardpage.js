@@ -117,6 +117,7 @@ const refresh = () => {
       questionIds = obj.questionIds;
       questionVotes = obj.questionVotes;
       const totalVoteCount = obj.totalVoteCount;
+      document.getElementById('total-vote-count').textContent = totalVoteCount;
       const container = document.getElementById('questions');
       const globalSpinner = container.querySelector('.spinner');
       if (!!globalSpinner) {
@@ -124,7 +125,7 @@ const refresh = () => {
       }
       if (!questionIds || !questionIds.length) {
         container.innerHTML =
-            '<big style="display: block; text-align: center;">∅</big>';
+            '<big style="display: block; text-align: center; padding: 5ex 0;">∅</big>';
       }
       ensureQuestionData();
       ensureQuestionElements();
