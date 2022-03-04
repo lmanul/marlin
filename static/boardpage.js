@@ -104,6 +104,7 @@ const ensureQuestionElements = () => {
       const voteEls = el.querySelectorAll('.question-voting-updown');
       voteEls.forEach((el) => { el.setAttribute('data-id', id); });
       el.addEventListener('click', (e) => {
+        e.target.classList.add('active');
         vote(e.target.getAttribute('data-id'), e.target.getAttribute('data'));
       });
       document.getElementById('questions').appendChild(el);
