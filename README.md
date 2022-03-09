@@ -1,4 +1,6 @@
-# marlin
+# Marlin
+
+![Animated screenshot](https://github.com/lmanul/marlin/blob/master/static/marlin_demo.gif?raw=true)
 
 ## How to use
 
