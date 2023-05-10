@@ -2,6 +2,7 @@ const fs = require('fs')
 const Board = require('./model/board')
 const Question = require('./model/question')
 
+const DATA_DIR = 'data';
 const BOARDS_DIR = 'data/boards/';
 const QUESTIONS_DIR = 'data/questions/';
 
@@ -131,6 +132,9 @@ const getVotesForBoardByUser = (boardId, email) => {
 };
 
 const _ensureDirectories = () => {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
   if (!fs.existsSync(BOARDS_DIR)) {
     fs.mkdirSync(BOARDS_DIR, { recursive: true });
   }
