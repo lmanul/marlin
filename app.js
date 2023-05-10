@@ -64,10 +64,9 @@ app.get('/b/:id', authentication.checkAuthenticated, (req, res) => {
 
 app.get('/b-data/:id', authentication.checkAuthenticated, (req, res) => {
   const boardId = req.params.id;
-  res.json(JSON.stringify({
-    ...store.getBoard(boardId),
-    'ownVotes': store.getVotesForBoardByUser(boardId, req.user.email)}));
-});
+  const board = store.getBoard(boardId);
+  board['ownVotes'] = store.getVotesForBoardByUser(boardId, req.user.email)}));
+  res.json(JSON.stringify(board);
 
 app.get('/q-data/:id', authentication.checkAuthenticated, (req, res) => {
   res.json(JSON.stringify(store.getQuestion(req.params.id)));
