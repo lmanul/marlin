@@ -34,7 +34,6 @@ class Question {
     this['upVoters'] = Array.from(this.upVoters);
     this['mehVoters'] = Array.from(this.mehVoters);
     this['downVoters'] = Array.from(this.downVoters);
-    };
     return JSON.stringify(obj);
   }
 }
