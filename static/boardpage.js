@@ -69,7 +69,7 @@ const getQuestionScore = (questionId) => {
 
 const positionQuestions = () => {
   let i = 0;
-  let sortedQuestionIds = [...questionIds];
+  let sortedQuestionIds = Array.from(questionIds);
   sortedQuestionIds.sort((a, b) => {
     return getQuestionScore(b) - getQuestionScore(a);
   });
