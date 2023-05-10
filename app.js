@@ -40,10 +40,13 @@ store.init().then(() => {
 // User-visible paths
 
 app.get('/', authentication.checkAuthenticated, (req, res) => {
-   res.render('home', {
-    ...util.getLoggedInUserDetails(req),
-    'boards': store.getBoards(),
-  });
+  const details = util.getLoggedInUserDetails(req);
+  res.render('home', {
+   'loggedInUserAvatar': details['loggedInUserAvatar'],
+   'loggedInUserEmail': details['loggedInUserEmail'],
+   'loggedInUserDisplayName': details['loggedInUserDisplayName'],
+   'boards': store.getBoards(),
+ });
 });
 
 app.get('/new', authentication.checkAuthenticated, (req, res) => {
