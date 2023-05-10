@@ -41,12 +41,11 @@ store.init().then(() => {
 
 app.get('/', authentication.checkAuthenticated, (req, res) => {
   const details = util.getLoggedInUserDetails(req);
-  res.render('home', {
-   'loggedInUserAvatar': details['loggedInUserAvatar'],
-   'loggedInUserEmail': details['loggedInUserEmail'],
-   'loggedInUserDisplayName': details['loggedInUserDisplayName'],
+  const data = {
    'boards': store.getBoards(),
- });
+  };
+  util.addLoggedInUserDetails(data, req);
+  res.render('home', data);
 });
 
 app.get('/new', authentication.checkAuthenticated, (req, res) => {
@@ -54,10 +53,11 @@ app.get('/new', authentication.checkAuthenticated, (req, res) => {
 });
 
 app.get('/b/:id', authentication.checkAuthenticated, (req, res) => {
-  res.render('board', {
-    ...util.getLoggedInUserDetails(req),
+  const data = {
     'board': store.getBoard(req.params.id),
-  });
+  };
+  util.addLoggedInUserDetails(data, req);
+  res.render('board', data);
 });
 
 // Invisible paths
