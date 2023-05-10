@@ -1,4 +1,6 @@
-const fs = require('fs')
+var Promise = require("bluebird");
+const fs = Promise.promisifyAll(require("fs"));
+// const fs = require('fs')
 const Board = require('./model/board')
 const Question = require('./model/question')
 
@@ -21,7 +23,7 @@ let cachedSortedBoards = [];
  */
 const init = () => {
   _ensureDirectories();
-  return fs.promises.readdir(BOARDS_DIR).then((files) => {
+  return fs.readdirAsync(BOARDS_DIR).then((files) => {
     const jsonFiles = [];
     files.forEach(file => {
       if (file.endsWith('.json')) {
@@ -82,7 +84,7 @@ const addBoard = (board) => {
   _updateCachedSortedBoards();
   const questionsDirForThisBoard = QUESTIONS_DIR + '/' + board.id;
   if (!fs.existsSync(questionsDirForThisBoard)) {
-    fs.mkdirSync(questionsDirForThisBoard, { recursive: true });
+    fs.mkdir(questionsDirForThisBoard, { recursive: true });
   }
 };
 
@@ -133,18 +135,18 @@ const getVotesForBoardByUser = (boardId, email) => {
 
 const _ensureDirectories = () => {
   if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.mkdir(DATA_DIR, { recursive: true });
   }
   if (!fs.existsSync(BOARDS_DIR)) {
-    fs.mkdirSync(BOARDS_DIR, { recursive: true });
+    fs.mkdir(BOARDS_DIR, { recursive: true });
   }
   if (!fs.existsSync(QUESTIONS_DIR)) {
-    fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
+    fs.mkdir(QUESTIONS_DIR, { recursive: true });
   }
 };
 
 const _loadBoardFromDisk = (file) => {
-  return fs.promises.readFile(BOARDS_DIR + '/' + file, 'utf8').then((data) => {
+  return fs.readFileAsync(BOARDS_DIR + '/' + file, 'utf8').then((data) => {
     const board = Board.deserialize(JSON.parse(data));
     addBoard(board);
     return _loadQuestionsForBoardFromDisk(board.id);
@@ -158,7 +160,7 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
     if (!board) {
       reject('I could not find board "' + boardId + '"');
     }
-    return fs.promises.readdir(board.getQuestionsDir()).then((files) => {
+    return fs.readdirAsync(board.getQuestionsDir()).then((files) => {
       const jsonFiles = [];
       files.forEach(file => {
         if (file.endsWith('.json')) {
@@ -180,7 +182,7 @@ const _loadQuestionsForBoardFromDisk = (boardId) => {
 };
 
 const _loadQuestionFromDisk = (file) => {
-  return fs.promises.readFile(file, 'utf8').then((data) => {
+  return fs.readFileAsync(file, 'utf8').then((data) => {
     const question = Question.deserialize(JSON.parse(data));
     addQuestion(question);
     console.log('Loaded ' + file);
