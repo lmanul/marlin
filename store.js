@@ -84,7 +84,7 @@ const addBoard = (board) => {
   _updateCachedSortedBoards();
   const questionsDirForThisBoard = QUESTIONS_DIR + '/' + board.id;
   if (!fs.existsSync(questionsDirForThisBoard)) {
-    fs.mkdir(questionsDirForThisBoard, { recursive: true });
+    fs.mkdirSync(questionsDirForThisBoard, { recursive: true });
   }
 };
 
@@ -135,13 +135,13 @@ const getVotesForBoardByUser = (boardId, email) => {
 
 const _ensureDirectories = () => {
   if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdir(DATA_DIR, { recursive: true });
+    fs.mkdirSync(DATA_DIR, { recursive: true });
   }
   if (!fs.existsSync(BOARDS_DIR)) {
-    fs.mkdir(BOARDS_DIR, { recursive: true });
+    fs.mkdirSync(BOARDS_DIR, { recursive: true });
   }
   if (!fs.existsSync(QUESTIONS_DIR)) {
-    fs.mkdir(QUESTIONS_DIR, { recursive: true });
+    fs.mkdirSync(QUESTIONS_DIR, { recursive: true });
   }
 };
 

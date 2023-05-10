@@ -19,6 +19,7 @@ const oneRandomLetter = () => {
 };
 
 module.exports = {
+  addLoggedInUserDetails,
   getLoggedInUserDetails,
   oneRandomLetter,
 };

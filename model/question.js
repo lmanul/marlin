@@ -31,9 +31,9 @@ class Question {
 
   serialize() {
     const obj = JSON.parse(JSON.stringify(this));
-    this['upVoters'] = Array.from(this.upVoters);
-    this['mehVoters'] = Array.from(this.mehVoters);
-    this['downVoters'] = Array.from(this.downVoters);
+    obj['upVoters'] = Array.from(this.upVoters);
+    obj['mehVoters'] = Array.from(this.mehVoters);
+    obj['downVoters'] = Array.from(this.downVoters);
     return JSON.stringify(obj);
   }
 }
