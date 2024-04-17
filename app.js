@@ -1,7 +1,7 @@
 const express = require('express')
 
 const app = express()
-const port = 80
+const port = 443
 
 const authentication = require('./authentication');
 const createboard = require('./createboard');
