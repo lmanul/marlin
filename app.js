@@ -1,7 +1,7 @@
-const express = require('express')
+const express = require('express');
 
-const app = express()
-const port = 443
+const app = express();
+const port = process.env.PORT || 8888;
 
 const authentication = require('./authentication');
 const createboard = require('./createboard');
