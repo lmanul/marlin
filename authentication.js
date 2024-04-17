@@ -22,7 +22,8 @@ const setupAuthentication = (app) => {
        clientID:     process.env.MARLIN_GOOGLE_CLIENT_ID,
        clientSecret: process.env.MARLIN_GOOGLE_CLIENT_SECRET,
        callbackURL:  "/auth/google/callback",
-       passReqToCallback   : true
+       passReqToCallback   : true,
+       proxy: true,
      }, authUser));
 
    passport.serializeUser((user, done) => {
