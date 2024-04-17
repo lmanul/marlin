@@ -18,9 +18,9 @@
   "homepage": "https://github.com/lmanul/marlin#readme",
   "dependencies": {
     "bluebird": "^3.7.2",
+    "cookie-session": "^2.1.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-    "express-session": "^1.17.2",
     "passport": "^0.5.2",
     "passport-google-oauth2": "^0.2.0"
   },

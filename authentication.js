@@ -1,4 +1,4 @@
-const session = require('express-session')
+const session = require('cookie-session')
 const passport = require('passport')
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
